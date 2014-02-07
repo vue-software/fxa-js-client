@@ -22,7 +22,7 @@ define(['client/lib/errors'], function (ERRORS) {
     signInUnknownUser: {
       status: 400,
       headers: {},
-      body: '{"code":400,"message":"Unknown account"}'
+      body: '{"code":400,"message":"Unknown account","errno":102}'
     },
     signInFailurePassword: {
       status: 400,
