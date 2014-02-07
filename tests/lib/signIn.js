@@ -121,7 +121,6 @@ define([
         return respond(client.signIn("unknown@unknown.com", password), RequestMocks.signInUnknownUser)
             .then(
             function (res) {
-              console.log('res', res);
               // this should not be called
               assert.ok(false);
             },
