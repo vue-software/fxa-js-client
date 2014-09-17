@@ -47,6 +47,7 @@ define([
    * @method signUp
    * @param {String} email Email input
    * @param {String} password Password input
+   * @param {String} name Name input
    * @param {Object} [options={}] Options
    *   @param {String} [options.service]
    *   Opaque alphanumeric token to be included in verification links
@@ -64,19 +65,21 @@ define([
    *   set the language for the 'Accept-Language' header
    * @return {Promise} A promise that will be fulfilled with JSON `xhr.responseText` of the request
    */
-  FxAccountClient.prototype.signUp = function (email, password, options) {
+  FxAccountClient.prototype.signUp = function (email, password, name, options) {
     var self = this;
 
     required(email, 'email');
     required(password, 'password');
+    required(name, 'name');
 
-    return credentials.setup(email, password)
+    return credentials.setup(email, password, name)
       .then(
         function (result) {
           var endpoint = '/account/create';
           var data = {
             email: result.emailUTF8,
-            authPW: sjcl.codec.hex.fromBits(result.authPW)
+            authPW: sjcl.codec.hex.fromBits(result.authPW),
+            name: result.name
           };
           var requestOpts = {};
 

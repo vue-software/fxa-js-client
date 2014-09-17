@@ -50,13 +50,14 @@ define(['./request', 'sjcl', 'p', './hkdf', './pbkdf2'], function (Request, sjcl
      * @param {String} passwordInput
      * @return {Promise} A promise that will be fulfilled with `result` of generated credentials
      */
-    setup: function (emailInput, passwordInput) {
+    setup: function (emailInput, passwordInput, nameInput) {
       var result = {};
       var email = kwe('quickStretch', emailInput);
       var password = sjcl.codec.utf8String.toBits(passwordInput);
 
       result.emailUTF8 = emailInput;
       result.passwordUTF8 = passwordInput;
+      result.nameUTF8 = nameInput;
 
       return pbkdf2.derive(password, email, PBKDF2_ROUNDS, STRETCHED_PASS_LENGTH_BYTES)
         .then(
